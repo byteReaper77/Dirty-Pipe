@@ -245,7 +245,7 @@ int exP(const char* file_path, long target_offset, const uint8_t* payload, size_
 
 #define MSG_LEN (sizeof(message)-1)
 const char filename[] = "/proc/self/status";
-const char message[] = "[-] [-] Anti-debug? Hahahahahah.\n";
+const char message[] = "[-] Anti-debug? Hahahahahah.\n";
 const int msg_len = sizeof(message) - 1;
 
 // Since you're such an expert, I figured you'd appreciate this masterpiece
